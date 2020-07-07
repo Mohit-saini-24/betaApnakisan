@@ -1,0 +1,234 @@
+<% layout('../boilerplate') -%>
+<% script('./client/myjs/firebaseInit.js') -%>
+<% script('../client/myjs/upload.js') -%>
+
+<div class="row">
+
+    <div class="col">
+        <button class="btn yellow darken-2 z-depth-0" onclick="openUpdateProductForm()">Update Product</button>
+    </div>
+    <div class="col">
+        <button class="btn yellow darken-2 z-depth-0" onclick="registerNewCategory()">Add New Category</button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col s6">
+        <a href="/" class="btn yellow darken-2 z-depth-0">Home</a>
+    </div>
+
+</div>
+
+<div class="row" id="update-product-form" style="display: none;">
+    <div class="col s12">
+        <input type="text" name="categoryName" id="categoryName">
+        <label for="categoryName">Enter Category Name</label>
+    </div>
+    <div class="col s12">
+        <button class="btn yellow darken-2 z-depth-0" onclick="searchProducts()">Search Products</button>
+    </div>
+</div>
+
+<div class="row">
+    <ul class="collection" id="category-products" style="display: none;">
+        <li class="collection-item">
+            <input type="hidden" id="registerNewProductCategory">
+            <button class="btn yellow darken-2 z-depth-0" onclick="registerNewProduct()">Add Product To Category</button>
+            <button class="btn yellow darken-2 z-depth-0" onclick="searchProductInCategory()">Search Product In Category</button>
+        </li>
+    </ul>
+</div>
+
+<div class="row" id="product-detail" style="display: none;">
+    <div class="col s12" id="detail-span">
+
+    </div>
+    <div class="col s12" id="varient-span">
+
+    </div>
+</div>
+
+<div class="row" id="edit-product-detail-form" style="display: none;">
+    <div class="col s12">
+        <input type="text" name="productDescription" id="productDescription">
+        <label for="productDescription">Enter Product Description</label>
+    </div>
+
+    <input type="hidden" id="edit-product-category-value">
+    <input type="hidden" id="edit-product-id-value">
+    <div class="col s12">
+        <button class="btn yellow darken-2 z-depth-0" onclick="editProductDescriptionDB()">Update Product
+            Description</button>
+    </div>
+</div>
+
+<div class="row" id="add-product-varient-form" style="display: none;">
+    <div class="col s12">
+        <input type="text" name="newProductVarient" id="newProductVarient">
+        <label for="newProductVarient">Enter Varient Name</label>
+    </div>
+    <div class="col s12">
+        <input type="number" name="newProductVarientQty" id="newProductVarientQty">
+        <label for="newProductVarientQty">Enter Varient Quantity</label>
+    </div>
+    <div class="col s12">
+        <input type="number" name="newProductVarientPrice" id="newProductVarientPrice">
+        <label for="newProductVarientPrice">Enter Varient Price</label>
+    </div>
+    <div class="col s12">
+        <input type="number" name="newProductVarientDiscountPrice" id="newProductVarientDiscountPrice">
+        <label for="newProductVarientDiscountPrice">Enter Varient Discount Price</label>
+    </div>
+
+    <input type="hidden" id="add-product-category-value">
+    <input type="hidden" id="add-product-id-value">
+    <div class="col s12">
+        <button class="btn yellow darken-2 z-depth-0" onclick="addProductVarientDB()">Add Product Varient</button>
+    </div>
+</div>
+
+<div class="row" id="edit-product-varient-form" style="display: none;">
+    <div class="col s12">
+        <input type="text" name="newEditProductVarient" id="newEditProductVarient">
+        <label for="newEditProductVarient">Enter Varient Name</label>
+    </div>
+    <div class="col s12">
+        <input type="number" name="newEditProductVarientQty" id="newEditProductVarientQty">
+        <label for="newEditProductVarientQty">Enter Varient Quantity</label>
+    </div>
+    <div class="col s12">
+        <input type="number" name="newEditProductVarientPrice" id="newEditProductVarientPrice">
+        <label for="newEditProductVarientPrice">Enter Varient Price</label>
+    </div>
+    <div class="col s12">
+        <input type="number" name="newEditProductVarientDiscountPrice" id="newEditProductVarientDiscountPrice">
+        <label for="newEditProductVarientDiscountPrice">Enter Varient Discount Price</label>
+    </div>
+
+    <input type="hidden" id="edit-product-varient-category-value">
+    <input type="hidden" id="edit-product-varient-id-value">
+    <div class="col s12">
+        <button class="btn yellow darken-2 z-depth-0" onclick="editProductVarientDB()">Edit Varient</button>
+    </div>
+</div>
+
+
+<div class="row" style="display: none;">
+    <div class="col s12">
+        <input type="text" name="sproduct-category" id="sproduct-category" onkeyup="searchCat()">
+        <ul id="product-category">
+            <li onclick="addValueToInput(event)">Categories</li>
+        </ul>
+
+    </div>
+    <br>
+    <div class="col s6">
+        <button onclick="searchCategory()" class="btn yellow darken-2 z-depth-0">Search Category</button>
+    </div>
+    <div class="col s6">
+        <button onclick="addCategory()" class="btn yellow darken-2 z-depth-0">Add Product</button>
+    </div>
+
+
+</div>
+
+<div class="row" id="add-new-category-form" style="display: none;">
+    <div class="col s12">
+        <input type="text" name="productCategory-add" id="productCategory-add" required>
+        <label for="productCategory-add">Enter Category Name</label>
+    </div>
+    <div class="col s12">
+        <input type="text" name="productCompany-add" id="productCompany-add" required>
+        <label for="productCompany-add">Enter Company Name</label>
+    </div>
+    <div class="col s12">
+        <input type="text" name="productName-add" id="productName-add" required>
+        <label for="productName-add">Enter Product Name</label>
+    </div>
+    <div class="col s12">
+        <input type="text" name="productNameHindi-add" id="productNameHindi-add" required>
+        <label for="productNameHindi-add">Enter Product Hindi Name</label>
+    </div>
+
+    <div class="col s12">
+        <input type="text" name="productDescription-add" id="productDescription-add" required>
+        <label for="productDescription-add">Enter Product Description</label>
+    </div>
+    <div class="col s12">
+        <input type="text" name="newProductVarient-add" id="newProductVarient-add">
+        <label for="newProductVarient-add">Enter Varient Name</label>
+    </div>
+    <div class="col s12">
+        <input type="number" name="newProductVarientQty-add" id="newProductVarientQty-add">
+        <label for="newProductVarientQty-add">Enter Varient Quantity</label>
+    </div>
+    <div class="col s12">
+        <input type="number" name="newProductVarientPrice-add" id="newProductVarientPrice-add">
+        <label for="newProductVarientPrice-add">Enter Varient Price</label>
+    </div>
+    <div class="col s12">
+        <input type="number" name="newProductVarientDiscountPrice-add" id="newProductVarientDiscountPrice-add">
+        <label for="newProductVarientDiscountPrice-add">Enter Varient Discount Price</label>
+    </div>
+    <div class="col s12">
+        <button onclick="registerNewCategoryProduct()">Add Product</button>
+    </div>
+</div>
+
+<div class="row">
+    <ul class="collection" id="search-category" style="display: none;">
+        <li class="collection-item"></li>
+    </ul>
+</div>
+
+<div class="row">
+    <ul id="products-list" class="collection" style="display: none;">
+        <li class="collection-item avatar">
+            <img src="img/logo.png" alt="" class="circle">
+            <span class="title">Title</span>
+            <p>First Line <br>
+                Second Line
+            </p>
+            <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+        </li>
+    </ul>
+</div>
+
+<div class="row" id="add-product-to-category" style="display: none;">
+    <div class="col s12">
+        <input type="text" name="productCompany-add" id="productCompany-add" required>
+        <label for="productCompany-add">Enter Company Name</label>
+    </div>
+    <div class="col s12">
+        <input type="text" name="productName-add" id="productName-add" required>
+        <label for="productName-add">Enter Product Name</label>
+    </div>
+    <div class="col s12">
+        <input type="text" name="productNameHindi-add" id="productNameHindi-add" required>
+        <label for="productNameHindi-add">Enter Product Hindi Name</label>
+    </div>
+
+    <div class="col s12">
+        <input type="text" name="productDescription-add" id="productDescription-add" required>
+        <label for="productDescription-add">Enter Product Description</label>
+    </div>
+    <div class="col s12">
+        <input type="text" name="newProductVarient-add" id="newProductVarient-add">
+        <label for="newProductVarient-add">Enter Varient Name</label>
+    </div>
+    <div class="col s12">
+        <input type="number" name="newProductVarientQty-add" id="newProductVarientQty-add">
+        <label for="newProductVarientQty-add">Enter Varient Quantity</label>
+    </div>
+    <div class="col s12">
+        <input type="number" name="newProductVarientPrice-add" id="newProductVarientPrice-add">
+        <label for="newProductVarientPrice-add">Enter Varient Price</label>
+    </div>
+    <div class="col s12">
+        <input type="number" name="newProductVarientDiscountPrice-add" id="newProductVarientDiscountPrice-add">
+        <label for="newProductVarientDiscountPrice-add">Enter Varient Discount Price</label>
+    </div>
+    <div class="col s12">
+        <button onclick="addNewProductToCategory()">Add Product</button>
+    </div>
+</div>

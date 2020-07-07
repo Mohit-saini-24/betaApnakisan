@@ -1,0 +1,17 @@
+<% layout('boilerplate') -%>
+<% script('./client/myjs/firebaseInit.js')%>
+<% script('./client/myjs/indexpage.js')%>
+<% stylesheet('css/featured-product.css') -%>
+
+<% block('header', '') -%>
+
+<% include partials/hero %>
+<% include partials/featuredProduct %>
+
+<a href="/registerProduct" class="logged-in btn yellow" style="display: none;">Register Product</a>
+<a href="/login" class="logged-out btn yellow darken-2 z-depth-0">Login</a>
+<a href="/register" class="logged-in btn yellow ">Register User</a>
+<button class="btn yellow darken-2 z-depth-0" onclick="logout()">Logout</button>
+<% block('footer', '') -%>
+
+<% block('pageScript').append() %>
