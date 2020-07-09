@@ -30,7 +30,10 @@
                     // Return type determines whether we continue the redirect automatically
                     // or whether we leave that to developer to handle.
                     //console.log(authResult?.user?.uid);
-                    document.cookie = `userid=${authResult?.user?.uid}; Path=/;`;
+                    // document.cookie = `userid=${authResult?.user?.uid}; Path=/;`;
+                    db.collection('users').doc(authResult?.user?.uid).set({
+                        user:authResult?.user?.uid
+                    })
                     return true;
                 },
                 uiShown: function () {

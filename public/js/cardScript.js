@@ -1,17 +1,22 @@
 
-$(document).ready(async function () {
-    await renderCart()
+$(document).ready(function () {
+    $('.set-bg').each(function () {
+        var bg = $(this).data('setbg');
+        $(this).css('background-image', 'url(' + bg + ')');
+    });
+    renderCart()
     $('select').formSelect();
 })
 
 
-var x = document.cookie.split('=')[1];
+var x = document.cookie.split("=")[1].split("_")[0];
+//var uid = x.split('_')[0];
 console.log('user id: ==>' + x);
 
-async function renderCart() {
+function renderCart() {
     //alert('loaded')
 
-    await db.collection("users").doc(x).collection("cart").get().then((querySnapshot) => {
+    db.collection("users").doc(x).collection("cart").get().then((querySnapshot) => {
 
         querySnapshot.forEach((doc) => {
             // console.log('user cart data  ' + `${doc.id} => ${doc.data().productUID}`);

@@ -1,16 +1,19 @@
-//alert(document.getElementById('productId').value)
-$('.carousel').carousel()
-$('.tabs').tabs()
-/* 
-db.collection('products').doc('All Products').collection('Products').doc(document.getElementById('productId').value).get().then((snapshot) => {
-    console.log(snapshot.data())
-    if (snapshot.data() == undefined) {
-        console.log('product data : ==>' + snapshot.id + '  data: ==>' + snapshot.data().productName)
-        return;
-    }
-    renderProductDetails(snapshot.data());
+//
+
+$(document).ready(function(){
+
+    $('.carousel').carousel()
+    $('.tabs').tabs()
+    var productid = document.getElementById('productId').value;
+    //alert(productid)
+    db.collection('products').doc('All Products').collection('Products').doc(productid).onSnapshot(snapshot => {
+        console.log(snapshot.data())
+    }).catch(error => console.log('error fetching data ....'+error))    
 })
 
+ 
+
+/*
 function renderProductDetails(product){
     document.getElementById('product-detail-image').innerHTML = `
     <img src="${product.productURL}">
